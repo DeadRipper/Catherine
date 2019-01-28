@@ -27,6 +27,8 @@ namespace Catherine
 
 		string output_file = "Sound_FIle.wav";
 
+		static System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -59,7 +61,7 @@ namespace Catherine
 			}
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		private async void button1_Click(object sender, EventArgs e)
 		{
 			try
 			{
@@ -70,11 +72,26 @@ namespace Catherine
 				waveIn.WaveFormat = new WaveFormat(8000, 1);
 				waveFileWriter = new WaveFileWriter(output_file, waveIn.WaveFormat);
 				waveIn.StartRecording();
+				timer.Interval = 1000; //интервал между срабатываниями 1000 миллисекунд
+				timer.Tick += new EventHandler(timer_Tick); //подписываемся на события Tick
+				timer.Start();
+				textBox1.Text = (++timerCounter).ToString();
+				if (textBox1.Text.Contains("3"))
+				{
+					Thread.Sleep(8000);
+					await Task.Run(() => VoiceToText());
+				}
 			}
 			catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message);
 			}
+		}
+
+		int timerCounter = 0;
+		void timer_Tick(object sender, EventArgs e)
+		{
+			this.textBox1.Text = (++timerCounter).ToString();
 		}
 
 		private void button2_Click(object sender, EventArgs e)
@@ -92,16 +109,28 @@ namespace Catherine
 			if (checkBox1.Checked == true)
 				recognizer.SetInputToDefaultAudioDevice();
 			else
-				recognizer.SetInputToWaveFile(@"C:\Users\hardy\source\repos\VoiceSaver_\VoiceSaver_\bin\Debug\Sound_File.wav");
+				recognizer.SetInputToWaveFile(@"C:\Users\hardy\source\repos\Catherine\Catherine\bin\Debug\Sound_File.wav");
 
 			RecognitionResult result = recognizer.Recognize();
 			recognizer.UnloadAllGrammars();
-			textBox1.Text = result.Text;
+			string a = String.Format($"({DateTime.Now}) User said: {result.Text}\n", Dialog_box.Text);
+			Dialog_box.Text += a;
 
-			//FileStream fs = new FileStream(@"C:\Users\hardy\source\repos\VoiceSaver_\VoiceSaver_\bin\Debug\Test.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-			//byte[] arr = System.Text.Encoding.Default.GetBytes(text);
+			//FileStream fs = new FileStream(@"C:\Users\hardy\source\repos\Catherine\Catherine\bin\Debug\Test.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+			//byte[] arr = System.Text.Encoding.Default.GetBytes(Dialog_box.Text);
 			//fs.Write(arr, 0, arr.Length);
-			//MessageBox.Show("In File");
+		}
+
+		async void VoiceToText()
+		{
+			SpeechRecognitionEngine recognizer = new SpeechRecognitionEngine();
+			Grammar dictationGrammar = new DictationGrammar();
+			recognizer.LoadGrammar(dictationGrammar);
+			RecognitionResult result = recognizer.Recognize();
+			recognizer.UnloadAllGrammars();
+			recognizer.SetInputToWaveFile(@"C:\Users\hardy\source\repos\Catherine\Catherine\bin\Debug\Sound_File.wav");
+			string a = String.Format($"({DateTime.Now}) User said: {result.Text}\n", Dialog_box.Text);
+			Dialog_box.Text += a;
 		}
 	}
 }
