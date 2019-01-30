@@ -28,12 +28,14 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
-			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.button3 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			this.Dialog_box = new System.Windows.Forms.RichTextBox();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
 			// 
 			// checkBox1
@@ -45,13 +47,6 @@
 			this.checkBox1.TabIndex = 15;
 			this.checkBox1.Text = "Micro ?";
 			this.checkBox1.UseVisualStyleBackColor = true;
-			// 
-			// textBox1
-			// 
-			this.textBox1.Location = new System.Drawing.Point(12, 71);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(187, 20);
-			this.textBox1.TabIndex = 14;
 			// 
 			// button3
 			// 
@@ -91,14 +86,25 @@
 			this.Dialog_box.TabIndex = 16;
 			this.Dialog_box.Text = "";
 			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(11, 71);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(189, 20);
+			this.textBox1.TabIndex = 17;
+			// 
+			// timer1
+			// 
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(337, 251);
+			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.Dialog_box);
 			this.Controls.Add(this.checkBox1);
-			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.button3);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button1);
@@ -112,11 +118,12 @@
 		#endregion
 
 		private System.Windows.Forms.CheckBox checkBox1;
-		private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.RichTextBox Dialog_box;
+		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.Timer timer1;
 	}
 }
 
