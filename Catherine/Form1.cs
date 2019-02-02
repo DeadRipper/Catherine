@@ -27,6 +27,8 @@ namespace Catherine
 
 		string output_file = "Sound_FIle.wav";
 
+		public static string a;
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -100,7 +102,7 @@ namespace Catherine
 
 			RecognitionResult result = recognizer.Recognize();
 			recognizer.UnloadAllGrammars();
-			string a = String.Format($"({DateTime.Now}) User said: {result.Text}\n", Dialog_box.Text);
+			a = String.Format($"({DateTime.Now}) User said: {result.Text}\n", Dialog_box.Text);
 			Dialog_box.Text += a;
 			///
 			/// Будущее сохранение даных в файл
@@ -122,7 +124,7 @@ namespace Catherine
 				recognizer.SetInputToWaveFile(@"C:\Users\hardy\source\repos\Catherine\Catherine\bin\Debug\Sound_File.wav");
 			RecognitionResult result = recognizer.Recognize();
 			recognizer.UnloadAllGrammars();
-			string a = String.Format($"({DateTime.Now}) User said: {result.Text}\n", Dialog_box.Text);
+			a = String.Format($"({DateTime.Now}) User said: {result.Text}\n", Dialog_box.Text);
 			this.Dialog_box.Text += a;
 		}
 
@@ -157,12 +159,22 @@ namespace Catherine
 		private async void timer1_Tick_1(object sender, EventArgs e)
 		{
 			date1 = date1.AddMilliseconds(60);
-			textBox1.Text = date1.ToString("mm:ss:fff");
-			if (textBox1.Text.Equals("00:03:000"))
+			label1.Text = date1.ToString("mm:ss:fff");
+			if (label1.Text.Equals("00:03:000"))
 			{
-				timer1.Stop();
+				//timer1.Stop();
 				waveIn.StopRecording();
 				await Task.Run(() => VoiceToText());
+				Thread.Sleep(2000);
+				await Task.Run(() => Answer());
+			}
+		}
+
+		private void Answer()
+		{
+			if(Dialog_box.Text.Contains(a))
+			{
+				Dialog_box.Text += "I don't know";
 			}
 		}
 	}
