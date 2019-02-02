@@ -174,7 +174,10 @@ namespace Catherine
 		{
 			if(Dialog_box.Text.Contains(a))
 			{
+				SpeechSynthesizer synthesizer = new SpeechSynthesizer();
 				Dialog_box.Text += String.Format($"{DateTime.Now} Catherine said: {Cor(a)}");
+				synthesizer.Speak($"{Cor(a)}");
+
 			}
 		}
 
@@ -182,7 +185,7 @@ namespace Catherine
 		{
 			mes = a;
 			if (mes != null)
-				mes = "I don't know";
+				mes = "suka blyat pizdec";
 			return mes;
 		}
 	}
