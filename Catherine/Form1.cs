@@ -174,8 +174,16 @@ namespace Catherine
 		{
 			if(Dialog_box.Text.Contains(a))
 			{
-				Dialog_box.Text += "I don't know";
+				Dialog_box.Text += String.Format($"{DateTime.Now} Catherine said: {Cor(a)}");
 			}
+		}
+
+		private string Cor(string mes)
+		{
+			mes = a;
+			if (mes != null)
+				mes = "I don't know";
+			return mes;
 		}
 	}
 }
