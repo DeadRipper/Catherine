@@ -185,7 +185,7 @@ namespace Catherine
 		{
 			mes = a;
 			if (mes != null)
-				mes = "suka blyat pizdec";
+				mes = "I don't know";
 			return mes;
 		}
 	}
