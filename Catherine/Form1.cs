@@ -150,16 +150,16 @@ namespace Catherine
 			if (Dialog_box.Text.Contains(a))
 			{
 				SpeechSynthesizer synthesizer = new SpeechSynthesizer();
-				Dialog_box.Text += String.Format($"{DateTime.Now} Catherine said: {Cor(a)}");
-				synthesizer.Speak($"{Cor(a)}");
+				Dialog_box.Text += String.Format($"({DateTime.Now}) Catherine said: {Cor()}\n");
+				synthesizer.Speak($"{Cor()}");
 			}				
 		}
 
-		private string Cor(string mes)
+		public string Cor()
 		{
-			mes = a;
+			string mes = a;
 			LogicOfAnswer logic = new LogicOfAnswer();
-			logic.Saying(mes);
+			mes = logic.Saying();
 			return mes;
 			//mes = a;
 			//if (mes != null)

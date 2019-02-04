@@ -82,7 +82,7 @@
 			// 
 			this.Dialog_box.Location = new System.Drawing.Point(12, 97);
 			this.Dialog_box.Name = "Dialog_box";
-			this.Dialog_box.Size = new System.Drawing.Size(187, 142);
+			this.Dialog_box.Size = new System.Drawing.Size(313, 142);
 			this.Dialog_box.TabIndex = 16;
 			this.Dialog_box.Text = "";
 			// 
