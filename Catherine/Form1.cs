@@ -66,19 +66,6 @@ namespace Catherine
 		{
 			try
 			{
-				//	waveIn = new WaveIn();
-				//	waveIn.DeviceNumber = 0;
-				//	waveIn.DataAvailable += waveIn_DataAvailable;
-				//	waveIn.RecordingStopped += waveIn_RecordingStopped;
-				//	waveIn.WaveFormat = new WaveFormat(8000, 1);
-				//	waveFileWriter = new WaveFileWriter(output_file, waveIn.WaveFormat);
-				//	waveIn.StartRecording();
-				//	timer.Interval = 1000; //интервал между срабатываниями 1000 миллисекунд
-				//	timer.Tick += new EventHandler(timer_Tick); //подписываемся на события Tick
-				//	timer.Start();
-				//	textBox1.Text = (++timerCounter).ToString();
-				//	if (textBox1.Text.Contains("3"))
-				//		Thread.Sleep(8000);
 				SaveVoice();
 			}
 			catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -137,22 +124,10 @@ namespace Catherine
 			waveIn.WaveFormat = new WaveFormat(8000, 1);
 			waveFileWriter = new WaveFileWriter(output_file, waveIn.WaveFormat);
 			waveIn.StartRecording();
-			//TimerCallback tm = new TimerCallback(Count);
-			//System.Threading.Timer timer = new System.Threading.Timer(tm, timerCounter, 0, 2000);
-			//timer.Interval = 1000; //интервал между срабатываниями 1000 миллисекунд
-			//timer.Tick += new EventHandler(timer_Tick); //подписываемся на события Tick
-			//timer.Start();
 			if (timer1.Enabled == true)
 				timer1.Enabled = false;
 			else
 				timer1.Enabled = true;
-			//if (textBox1.Text.Equals("00:03:000"))
-			//{
-			//	timer1.Stop();
-			//	//Thread.Sleep(6000);
-			//	waveIn.StopRecording();
-			//	await Task.Run(() => VoiceToText());
-			//}
 		}
 
 		DateTime date1 = new DateTime(0, 0);
@@ -172,21 +147,26 @@ namespace Catherine
 
 		private void Answer()
 		{
-			if(Dialog_box.Text.Contains(a))
+			if (Dialog_box.Text.Contains(a))
 			{
 				SpeechSynthesizer synthesizer = new SpeechSynthesizer();
 				Dialog_box.Text += String.Format($"{DateTime.Now} Catherine said: {Cor(a)}");
 				synthesizer.Speak($"{Cor(a)}");
-
-			}
+			}				
 		}
 
 		private string Cor(string mes)
 		{
 			mes = a;
-			if (mes != null)
-				mes = "I don't know";
+			LogicOfAnswer logic = new LogicOfAnswer();
+			logic.Saying(mes);
 			return mes;
+			//mes = a;
+			//if (mes != null)
+			//	mes = "I don't know";
+			//if (mes == null)
+			//	mes = "Please, say something to me.";
+			//return mes;
 		}
 	}
 }
