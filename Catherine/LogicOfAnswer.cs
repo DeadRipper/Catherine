@@ -10,9 +10,12 @@ namespace Catherine
 {
 	class LogicOfAnswer
 	{
-		public string Saying()
+		/// <summary>
+		/// Saying method == first version of answer
+		/// </summary>
+		/// <returns></returns>
+		/*public string Saying()
 		{
-			
 			string pattern = "(^[A-Z]{1}[a-z]{1,14} [A-Z]{1}[a-z]{1,14}$)|(^[А-Я]{1}[а-я]{1,14} [А-Я]{1}[а-я]{1,14}$)";
 			string words = "";
 			char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
@@ -24,7 +27,28 @@ namespace Catherine
 				words += letters[letter_num];
 				Regex.IsMatch(words, pattern);
 			}
-			return words;
+			return SentenceConstruct();
+		}*/
+
+
+		///
+		/// SentenceConstruct - answer tryhard
+		///
+		public string SentenceConstruct()
+		{
+			Random rnd = new Random();
+			string speech = ""; 
+			int a = rnd.Next(3);
+
+			string[] firstword = new string[] {"I", "Me", "You" };
+			string[] secondword = new string[] { "don't", "shoot", "humans" };
+			string[] thirdword = new string[] { "oh", "my", "god" };
+
+			for (int j = 0; j < firstword.Length; j++)
+			{
+				speech = $"{firstword[a]} {secondword[a]} {thirdword[a]}";
+			}
+			return speech;
 		}
 	}
 }

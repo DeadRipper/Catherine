@@ -137,7 +137,6 @@ namespace Catherine
 			label1.Text = date1.ToString("mm:ss:fff");
 			if (label1.Text.Equals("00:03:000"))
 			{
-				//timer1.Stop();
 				waveIn.StopRecording();
 				await Task.Run(() => VoiceToText());
 				Thread.Sleep(2000);
@@ -150,8 +149,9 @@ namespace Catherine
 			if (Dialog_box.Text.Contains(a))
 			{
 				SpeechSynthesizer synthesizer = new SpeechSynthesizer();
-				Dialog_box.Text += String.Format($"({DateTime.Now}) Catherine said: {Cor()}\n");
-				synthesizer.Speak($"{Cor()}");
+				string speek = Cor();
+				Dialog_box.Text += String.Format($"({DateTime.Now}) Catherine said: {speek}\n");
+				synthesizer.Speak($"{speek}");
 			}				
 		}
 
@@ -159,7 +159,7 @@ namespace Catherine
 		{
 			string mes = a;
 			LogicOfAnswer logic = new LogicOfAnswer();
-			mes = logic.Saying();
+			mes = logic.SentenceConstruct();
 			return mes;
 			//mes = a;
 			//if (mes != null)
