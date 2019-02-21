@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace Catherine
 {
@@ -49,6 +51,21 @@ namespace Catherine
 				speech = $"{firstword[a]} {secondword[a]} {thirdword[a]}";
 			}
 			return speech;
+		}
+
+		public string AnswerTry()
+		{
+			string answer = "";
+			string search = "SELECT [word] FROM[dbo].[Dictionary]";
+			string ConnectionString = ConfigurationManager.ConnectionStrings["Dictionary.Properties.Settings.Параметр"].ConnectionString;
+			SqlConnection conn = new SqlConnection(ConnectionString);
+			SqlCommand cmd = new SqlCommand(search, conn);
+			SqlDataAdapter adapter = new SqlDataAdapter();
+
+			conn.Open();
+			adapter.SelectCommand = cmd;
+
+			return answer;
 		}
 	}
 }

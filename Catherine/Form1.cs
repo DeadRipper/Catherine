@@ -159,14 +159,8 @@ namespace Catherine
 		{
 			string mes = a;
 			LogicOfAnswer logic = new LogicOfAnswer();
-			mes = logic.SentenceConstruct();
+			mes = logic.AnswerTry();
 			return mes;
-			//mes = a;
-			//if (mes != null)
-			//	mes = "I don't know";
-			//if (mes == null)
-			//	mes = "Please, say something to me.";
-			//return mes;
 		}
 	}
 }
